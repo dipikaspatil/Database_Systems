@@ -1,0 +1,17 @@
+/*
+	Trigger to make entry in log table on updation of CLASSES table entry
+*/
+CREATE OR REPLACE TRIGGER TRIG_ON_UPD_CLASSES_INS_LOGS
+  AFTER UPDATE ON CLASSES
+  FOR EACH ROW
+BEGIN
+  INSERT INTO LOGS
+  VALUES
+    (LOG_SEQ_GENERATOR.NEXTVAL,
+     USER,
+     SYSDATE,
+     'CLASSES',
+     'UPDATE',
+     :NEW.CLASSID);
+END;
+/

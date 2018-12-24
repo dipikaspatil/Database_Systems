@@ -1,0 +1,12 @@
+/*
+	Trigger to make entry in log table on deletion of TA table entry
+*/
+CREATE OR REPLACE TRIGGER TRIG_ON_DEL_TAS_INS_LOGS
+  AFTER DELETE ON TAS
+  FOR EACH ROW
+BEGIN
+  INSERT INTO LOGS
+  VALUES
+    (LOG_SEQ_GENERATOR.NEXTVAL, USER, SYSDATE, 'TAS', 'DELETE', :OLD.B#);
+END;
+/

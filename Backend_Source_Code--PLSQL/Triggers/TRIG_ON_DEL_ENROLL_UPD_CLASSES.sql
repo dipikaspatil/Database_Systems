@@ -1,0 +1,12 @@
+/*
+	Trigger to decrease class size in CLASSES table on deletion of enrollment table entry
+*/
+CREATE OR REPLACE TRIGGER TRIG_ON_DEL_ENROLL_UPD_CLASSES
+  AFTER DELETE ON ENROLLMENTS
+  FOR EACH ROW
+BEGIN
+  UPDATE CLASSES
+     SET CLASS_SIZE = CLASS_SIZE - 1
+   WHERE CLASSID = :OLD.CLASSID;
+END;
+/
